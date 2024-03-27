@@ -46,12 +46,12 @@ optional_settings.not_medium_constrained = not_medium_constrained;
 % 
 
 for i = 1:numel(colnames) 
-    [ContextModel] = fastcormics_RNAseq(Cmodel, discretized(:,i), ...
+    [ContextModel, A_keep] = fastcormics_RNAseq(Cmodel, discretized(:,i), ...
         rownames, dico, biomass_rxn, already_mapped_tag, consensus_proportion, epsilon, optional_settings);
      
     filePath = fullfile('PBMC_Models', colnames{i});
     save(filePath, 'ContextModel');   
-    models_keep(A_final,i) = 1;
+    models_keep(A_keep,i) = 1;
 end
 %% 
 % 
