@@ -1,4 +1,3 @@
-# libraries
 import numpy as np
 from scipy import stats
 from statsmodels.stats import multitest
@@ -42,7 +41,8 @@ def ttest_viz(df1, df2, title, filename):
     
     reject, q_values = multitest.fdrcorrection(p_values)
     q_values = np.clip(q_values, a_min = 10**(-15), a_max = 1)
-
+    diff = np.clip(diff, a_min = -7, a_max = diff.max())
+    
     t_results = pd.DataFrame({
     'p_value': p_values,
     'q_value': q_values,
@@ -58,8 +58,10 @@ def ttest_viz(df1, df2, title, filename):
 
     #Visualization
     plt.figure(figsize = (10, 8))
-    t_colors = {"NO SIGNIFICANCE":"#D2D2D2", "POSITIVE":"#FF6462", "NEGATIVE":"#62B8FF"}
-    sns.scatterplot(x = t_results['diff'], y = -np.log10(t_results['q_value']), hue = t_results['sign'], palette = t_colors, alpha = 0.7)
+    t_colors = {"NO SIGNIFICANCE":"#D2D2D2", "POSITIVE":"#FF2926", "NEGATIVE":"#2183FF"}
+    sns.scatterplot(x = t_results['diff'], y = -np.log10(t_results['q_value']), hue = t_results['sign'], palette = t_colors, 
+                    alpha = 0.7, size=t_results['sign'], sizes=[40, 100, 100])
+
     
     plt.title(title)
     plt.ylabel('Significance(-log10(q-value))')
@@ -67,8 +69,10 @@ def ttest_viz(df1, df2, title, filename):
     plt.axhline(-np.log10(0.05), color = 'k', linestyle = '--', linewidth = 1, label = 'THRESHOLD')
     plt.axvline(1, color = 'k', linestyle = '--', linewidth = 1)
     plt.axvline(-1, color = 'k', linestyle = '--', linewidth = 1)
-    plt.legend(loc = 'best')
-    plt.xlim(-8, 8)
+    legend_patches = [plt.Line2D([0], [0], marker='o', color='w', markerfacecolor=color, markersize=10)
+                  for color in t_colors.values()]
+    plt.legend(legend_patches, t_colors.keys(), loc='best', title="Difference")
+    plt.xlim(-7.2, 7.2)
     plt.grid(True)
     plt.savefig(filename)
     plt.show()
@@ -104,24 +108,5 @@ def hgtest_viz(subsystems_df, ts_results, filename):
     ht_results['q-value'] = q_values
     hts_results = ht_results[ht_results['q-value'] < 0.05]
     hts_results = hts_results.sort_values(by = 'Ratio', ascending = False)
-
-    #Visualization
-    plt.figure(figsize = (10, 8))
-    sns.scatterplot(data = hts_results, x = 'Ratio', y = 'Subsystem', size = 'Count', sizes = (50, 800), alpha = 0.7,
-                hue = -np.log10(hts_results['q-value']), palette = 'viridis_r')
-    norm = plt.Normalize(vmin = -np.log10(hts_results['q-value']).min(), vmax = -np.log10(hts_results['q-value']).max())
-    sm = plt.cm.ScalarMappable(cmap = 'viridis_r', norm = norm)
-    sm.set_array([])
-    plt.colorbar(sm, ax = plt.gca(), label = 'Significance(-log10(q-value))')
     
-    ax = plt.gca()
-    handles, labels = ax.get_legend_handles_labels()
-    ax.legend_.remove()
-    legend_n = labels.index('Count')
-    ax.legend(handles[legend_n:], labels[legend_n:], bbox_to_anchor = (1.5, 0.7), labelspacing = 2, borderpad = 1.5)
-    
-    plt.grid(axis = 'y', linestyle = '--', alpha = 0.7)
-    plt.savefig(filename)
-    plt.show()
-
     return ht_results, hts_results
