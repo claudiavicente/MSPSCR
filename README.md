@@ -6,9 +6,9 @@
 
 This repository contains: 
 1. **rFASTCORMICS_examples**: rFASTCORMICS example and part of the additional example scripts can be found. There are also Jupyter Notebooks to simulate the generated single models with FBA.
-  - scripts that end with *"example"* use Recon2 as consistent model
-  - scripts that end with *"example_3D"* use Recon3D as consistent model
-  - scripts starting with *"FS"* carry out the models simulation
+    * scripts that end with `"example"` use Recon2 as consistent model
+    * scripts that end with `"example_3D"` use Recon3D as consistent model
+    * scripts starting with `"FS"` carry out the models simulation
 2. **Tests**: the pipeline steps are tested on subsets of RNA-seq and PBMC 3K datasets.
 3. **PBMC3K**: the final computational pipeline is applied to the PBMC 3K dataset.
 
