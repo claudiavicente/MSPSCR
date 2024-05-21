@@ -1,4 +1,4 @@
-ipywidgets
-scipy
-matplotlib
-
+ipywidgets==7.6.3
+scipy==1.6.2
+matplotlib==3.4.1
+jupyter
