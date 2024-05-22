@@ -1,6 +1,6 @@
 %% rFASTCORMICS FOR 30 PBMC scRNA-seq SAMPLES
-% 
-%% Setup
+%(Pacheco et al., 2019, EBioMedicine)
+%%
 
 addpath(genpath(pwd)) 
 feature astheightlimit 2000
