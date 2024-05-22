@@ -1,5 +1,5 @@
 %% rFASTCORMICS FOR THE PBMC 3K scRNA-seq DATASET
-% 
+%(Pacheco et al., 2019, EBioMedicine)
 %% 
 
 addpath(genpath(pwd)) 

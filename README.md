@@ -5,7 +5,7 @@
 ## FEATURES
 
 This repository contains: 
-1. **rFASTCORMICS_examples**: rFASTCORMICS example and part of the additional example scripts can be found. There are also Jupyter Notebooks to simulate the generated single models with FBA.
+1. **rFASTCORMICS_examples**: rFASTCORMICS (Pacheco et al., 2019, EBioMedicine) example and part of the additional example scripts can be found. There are also Jupyter Notebooks to simulate the generated single models with FBA.
     * scripts that end with `"example"` use Recon2 as consistent model
     * scripts that end with `"example_3D"` use Recon3D as consistent model
     * scripts starting with `"FS"` carry out the models simulation

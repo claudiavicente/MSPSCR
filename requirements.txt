@@ -1,3 +1,4 @@
+# requirements for hg_test notebook
 ipywidgets
 scipy
 matplotlib
