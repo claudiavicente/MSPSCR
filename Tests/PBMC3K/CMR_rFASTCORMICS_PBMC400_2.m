@@ -1,4 +1,5 @@
 %% rFASTCORMICS FOR 400 PBMC scRNA-seq SAMPLES
+%(Pacheco et al., 2019, EBioMedicine)
 %% 
 
 addpath(genpath(pwd)) 
