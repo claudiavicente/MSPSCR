@@ -1,6 +1,6 @@
 # INTRODUCTION
 
-**Metabolic trajectory inference at single-cell resolution** is a project developed as a Bachelor's Thesis (TFG), to infer metabolic trajectories from single-cell expression data. This entails the development of a computational tool, to integrate expression data and metabolic models at the single-cell level.
+**Metabolic state prediction at single-cell resolution** is a project developed as a Bachelor's Thesis (TFG), to recover metabolic states from single-cell expression data. This entails the development of a computational tool, to integrate expression data and metabolic models at the single-cell level.
 
 ## FEATURES
 
