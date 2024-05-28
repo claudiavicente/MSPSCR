@@ -6,6 +6,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from scipy.stats import hypergeom
 
+########################################################################################################################################
+
 def flux_transformer(v):
 
     def adjusted(v):
@@ -32,13 +34,13 @@ def flux_transformer(v):
 
 ########################################################################################################################################
 
-def ttest_viz(df1, df2, title, filename):
+def ttest_viz(df1, df2, title):
     
     #T-test
     t_statistic, p_values = stats.ttest_ind(df1, df2, axis = 0)
     diff = np.mean(df1, axis = 0) - np.mean(df2, axis = 0)
     p_values[np.isnan(p_values)] = 1.0
-    
+
     reject, q_values = multitest.fdrcorrection(p_values)
     q_values = np.clip(q_values, a_min = 10**(-15), a_max = 1)
     diff = np.clip(diff, a_min = -7, a_max = diff.max())
@@ -60,7 +62,7 @@ def ttest_viz(df1, df2, title, filename):
     plt.figure(figsize = (10, 8))
     t_colors = {"NO SIGNIFICANCE":"#D2D2D2", "POSITIVE":"#FF2926", "NEGATIVE":"#2183FF"}
     sns.scatterplot(x = t_results['diff'], y = -np.log10(t_results['q_value']), hue = t_results['sign'], palette = t_colors, 
-                    alpha = 0.7, size=t_results['sign'], sizes=[40, 100, 100])
+                    alpha = 0.7, size = t_results['sign'], sizes=[40, 100, 100])
 
     
     plt.title(title)
@@ -69,19 +71,18 @@ def ttest_viz(df1, df2, title, filename):
     plt.axhline(-np.log10(0.05), color = 'k', linestyle = '--', linewidth = 1, label = 'THRESHOLD')
     plt.axvline(1, color = 'k', linestyle = '--', linewidth = 1)
     plt.axvline(-1, color = 'k', linestyle = '--', linewidth = 1)
-    legend_patches = [plt.Line2D([0], [0], marker='o', color='w', markerfacecolor=color, markersize=10)
+    legend_patches = [plt.Line2D([0], [0], marker = 'o', color = 'w', markerfacecolor = color, markersize = 10)
                   for color in t_colors.values()]
-    plt.legend(legend_patches, t_colors.keys(), loc='best', title="Difference")
+    plt.legend(legend_patches, t_colors.keys(), loc = 'best', title = "Difference")
     plt.xlim(-7.2, 7.2)
     plt.grid(True)
-    plt.savefig(filename)
     plt.show()
     
     return t_results, ts_results
 
 ########################################################################################################################################
 
-def hgtest_viz(subsystems_df, ts_results, filename):
+def hgtest_viz(subsystems_df, ts_results):
     
     #Hypergeometric test
     ts_subsystems = subsystems_df[subsystems_df.index.isin(ts_results.index)]
@@ -89,18 +90,18 @@ def hgtest_viz(subsystems_df, ts_results, filename):
     ss_counts = subsystems_df['Subsystem'].value_counts()
     m_counts = ts_subsystems['Subsystem'].value_counts()
     
-    rx = len(subsystems_df)
-    rx_m = len(ts_subsystems)
+    N = len(subsystems_df)
+    n = len(ts_subsystems)
     
     results = []
     for subsystem in ts_subsystems['Subsystem'].unique():
-        ss_successes = ss_counts.get(subsystem, 0)
-        m_successes = m_counts.get(subsystem, 0)
-        p_value = hypergeom.sf(m_successes - 1, rx, ss_successes, rx_m)
+        K = ss_counts.get(subsystem, 0)
+        k = m_counts.get(subsystem, 0)
+        p_value = hypergeom.sf(k - 1, N, K, n)
         results.append({
             'Subsystem': subsystem,
-            'Count': m_successes,
-            'Ratio': m_successes/ss_successes,
+            'Count': k,
+            'Ratio': k/K,
             'p-value': p_value
         })
     ht_results = pd.DataFrame(results)
@@ -110,3 +111,4 @@ def hgtest_viz(subsystems_df, ts_results, filename):
     hts_results = hts_results.sort_values(by = 'Ratio', ascending = False)
     
     return ht_results, hts_results
+    
