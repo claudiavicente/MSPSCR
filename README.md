@@ -11,6 +11,7 @@ This repository contains:
     * scripts starting with `"FS"` carry out the models simulation
 2. **Tests**: the pipeline steps are tested on subsets of RNA-seq and PBMC 3K datasets.
 3. **Pipeline/PBMC3K**: the final computational pipeline is applied to the PBMC 3K dataset.
+   > To visualize Pipeline/PBMC3K/CMR_rFASTCORMICS_PBMC3K.html copy its URL into [!HTML preview](https://htmlpreview.github.io/badge_logo.svg)](https://htmlpreview.github.io/?), the ".mlx" file can be find in the same directory.
 
 ## PBMC3K SCRIPTS ORGANIZATION
 
