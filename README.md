@@ -30,4 +30,4 @@ The used RNA-seq data can be obtained from the [GTEx Portal](https://www.gtexpor
 
 The PBMC3K data is available at 10x Genomics, it can be directly downloaded [here](http://cf.10xgenomics.com/samples/cell-exp/1.1.0/pbmc3k/pbmc3k_filtered_gene_bc_matrices.tar.gz).
 
-Middle-steps data (as fluxome data frame and cell-types identification) are stored [here](https://universitatdevic-my.sharepoint.com/:f:/g/personal/claudia_vicente_uvic_cat/Egr1py82Nt5Lg1j-etbi5fQBe69Qd8aiAIgho4Ne_R-_TQ) and can also be downloaded.
+Middle-steps data (as fluxome data frame and cell-types identification) from the pipeline application onto the PBMC3K dataset are stored [here](https://universitatdevic-my.sharepoint.com/:f:/g/personal/claudia_vicente_uvic_cat/Egr1py82Nt5Lg1j-etbi5fQBe69Qd8aiAIgho4Ne_R-_TQ) and can also be downloaded.
